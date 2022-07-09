@@ -1,0 +1,6 @@
+rootProject.name = 'rpc-demo'
+
+
+include ':client',
+        ':server',
+        ':service-interface'

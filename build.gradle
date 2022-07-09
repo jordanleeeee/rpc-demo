@@ -1,0 +1,23 @@
+apply from: file("${rootDir}/gradle/project.gradle")
+
+repositories {
+    mavenCentral()
+}
+
+project('client') {
+    dependencies {
+        implementation 'net.bytebuddy:byte-buddy:1.12.12'
+        implementation project(":service-interface")
+    }
+}
+
+project('server') {
+    dependencies {
+        implementation project(":service-interface")
+    }
+}
+
+project('service-interface') {
+    dependencies {
+    }
+}
