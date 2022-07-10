@@ -1,14 +1,17 @@
 import api.GoodByeWebService;
 import api.GreetWebService;
 import framework.proxyclient.RpcByteBuddyProxyClient;
+import framework.proxyclient.RpcInvocationHandler;
+import framework.proxyclient.RpcProxyClient;
 
 /**
  * @author Jordan
  */
 public class GreetingClientDemo {
     public static void main(String[] args) {
-        RpcByteBuddyProxyClient rpcProxyClient = new RpcByteBuddyProxyClient("localhost", 8080);
-//        RpcProxyClient rpcProxyClient = new RpcProxyClient("localhost", 8080);
+        RpcInvocationHandler handler = new RpcInvocationHandler("localhost", 8080);
+        RpcProxyClient rpcProxyClient = new RpcProxyClient(handler);
+//        RpcByteBuddyProxyClient rpcProxyClient = new RpcByteBuddyProxyClient(handler);
         GreetWebService greetWebService = rpcProxyClient.clientProxy(GreetWebService.class);
         GoodByeWebService goodByeWebService = rpcProxyClient.clientProxy(GoodByeWebService.class);
 

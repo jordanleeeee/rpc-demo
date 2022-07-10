@@ -13,7 +13,6 @@ public class GreetingClientDemoV2 extends ClientApp {
 
     @Reference
     GreetWebService greetWebService;
-
     @Reference
     GoodByeWebService goodByeWebService;
 

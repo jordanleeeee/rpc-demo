@@ -6,14 +6,20 @@ repositories {
 
 project('client') {
     dependencies {
-        implementation 'net.bytebuddy:byte-buddy:1.12.12'
         implementation project(":service-interface")
+        implementation 'net.bytebuddy:byte-buddy:1.12.12'
+
+        implementation 'org.apache.dubbo:dubbo:3.0.9'
+        implementation 'org.apache.dubbo:dubbo-dependencies-zookeeper:3.0.8'
     }
 }
 
 project('server') {
     dependencies {
         implementation project(":service-interface")
+
+        implementation 'org.apache.dubbo:dubbo:3.0.9'
+        implementation 'org.apache.dubbo:dubbo-dependencies-zookeeper:3.0.8'
     }
 }
 

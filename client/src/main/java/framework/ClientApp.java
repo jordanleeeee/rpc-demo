@@ -3,6 +3,7 @@ package framework;
 import framework.annotation.Reference;
 import framework.proxyclient.ProxyClient;
 import framework.proxyclient.RpcByteBuddyProxyClient;
+import framework.proxyclient.RpcInvocationHandler;
 import framework.proxyclient.RpcProxyClient;
 
 import java.io.IOException;
@@ -31,8 +32,10 @@ public abstract class ClientApp {
         properties.load(this.getClass().getClassLoader().getResourceAsStream("app.properties"));
         String host = properties.getProperty("server.host", "localhost");
         int port = Integer.parseInt(properties.getProperty("server.port", "8080"));
-        proxyClient = new RpcProxyClient(host, port);
-        byteBuddyProxyClient = new RpcByteBuddyProxyClient(host, port);
+        var handler = new RpcInvocationHandler(host, port);
+
+        proxyClient = new RpcProxyClient(handler);
+        byteBuddyProxyClient = new RpcByteBuddyProxyClient(handler);
     }
 
     private void inject() throws IllegalAccessException {

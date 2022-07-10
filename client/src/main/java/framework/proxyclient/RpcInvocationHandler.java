@@ -1,22 +1,35 @@
-package framework.network;
+package framework.proxyclient;
 
 import api.RpcRequest;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.net.Socket;
 
 /**
  * @author Jordan
  */
-public class RpcNetTransport {
+public class RpcInvocationHandler implements InvocationHandler {
     private final String host;
     private final int port;
 
-    public RpcNetTransport(String host, int port) {
+    public RpcInvocationHandler(String host, int port) {
         this.host = host;
         this.port = port;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) {
+        RpcRequest request = new RpcRequest();
+        request.setClassName(method.getDeclaringClass().getName());
+        request.setMethodName(method.getName());
+        request.setParams(args);
+        request.setTypes(method.getParameterTypes());
+
+        return send(request);
     }
 
     public Object send(RpcRequest request) {
